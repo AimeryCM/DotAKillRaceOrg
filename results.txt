@@ -1,0 +1,28 @@
+Kills:
+    Obama Gaming 13
+    Xove 13
+    Shifty 11
+Assists:
+    Shifty 55
+    Obama Gaming 33
+    Xove 25
+Last Hits:
+    Shifty 323
+    Xove 323
+    Obama Gaming 98
+Denies:
+    Xove 46
+    Obama Gaming 9
+    Shifty 5
+Healing:
+    Obama Gaming 8076
+    Shifty 776
+    Xove 0
+Tower Damage:
+    Xove 27125
+    Shifty 6301
+    Obama Gaming 6141
+Deaths:
+    Shifty 29
+    Xove 6
+    Obama Gaming 5
