@@ -33,19 +33,32 @@ class PlayerTotals():
         for player in players_obj:
             this_account_id = player["account_id"]
             if self.account_id == this_account_id:
-                self.kills += player['kills']
-                self.assists += player['assists']
-                self.deaths += player['deaths']
-                self.gold += player['gold'] + player['gold_spent']
-                self.denies += player['denies']
-                self.healing += player['hero_healing']
-                self.towerdmg += player['tower_damage']
-                self.herodmg += player['hero_damage']
-                self.lasthits += player['last_hits']
-                self.obs += player['obs_placed']
-                self.runes += player['rune_pickups']
-                self.sents += player['sen_placed']
-                self.stacks += player['camps_stacked']
+                if player['kills'] is not None:
+                    self.kills += player['kills']
+                if player['assists'] is not None:
+                    self.assists += player['assists']
+                if player['deaths'] is not None:
+                    self.deaths += player['deaths']
+                if player['gold'] is not None and player['gold_spent'] is not None:
+                    self.gold += player['gold'] + player['gold_spent']
+                if player['denies'] is not None:
+                    self.denies += player['denies']
+                if player['hero_healing'] is not None:
+                    self.healing += player['hero_healing']
+                if player['tower_damage'] is not None:
+                    self.towerdmg += player['tower_damage']
+                if player['hero_damage'] is not None:
+                    self.herodmg += player['hero_damage']
+                if player['last_hits'] is not None:
+                    self.lasthits += player['last_hits']
+                if player['obs_placed'] is not None:
+                    self.obs += player['obs_placed']
+                if player['rune_pickups'] is not None:
+                    self.runes += player['rune_pickups']
+                if player['sen_placed'] is not None:
+                    self.sents += player['sen_placed']
+                if player['camps_stacked'] is not None:
+                    self.stacks += player['camps_stacked']
 
     def print_stats(self):
         print("discord: " + self.discord)
@@ -69,15 +82,27 @@ class PlayerTotals():
 #main
 
 #import json of player info. will convert steam name to ID and discord name
+with open(PLAYER_DATA_FILE) as f1:
+    player_data = json.load(f1)
 
 #create a PlayerTotals object for each player in the above json
+player_dict = {}
 
-#add PlayerTotals objects to dictionary mapping steamID to PlayerTotals obj
+#add PlayerTotals objects to dictionary mapping steamName to PlayerTotals obj
+for player in player_data:
+    player_dict[player] = PlayerTotals(discord = player_data[player]['Discord'], account_id = player_data[player]['Steam ID'])
 
 #go through the json of submitted matches and add to the PlayerTotals
+with open(MATCH_DATA_FILE) as f2:
+    match_data = json.load(f2)
+
+for match_info in match_data['Sheet1']:
+    currentName = match_info['Steam Name']
+    player_dict[currentName].add_match(match_info['MatchID'])
+
 
 #rank everyone on each part
 
-test_obj = PlayerTotals("Shifty#9661", 84853139)
-test_obj.add_match(5799792595)
-test_obj.print_stats()
+player_dict["Shifty"].print_stats()
+player_dict["Obama Gaming"].print_stats()
+player_dict["Xove"].print_stats()
